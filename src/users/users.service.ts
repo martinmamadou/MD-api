@@ -8,7 +8,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+  ) { }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
@@ -39,4 +39,10 @@ export class UsersService {
     await this.usersRepository.delete(user_id);
     return user;
   }
+
+  async getUserConnected(user_id: number): Promise<User | null> {
+    return this.usersRepository.findOne({ where: { id: user_id } });
+  }
 }
+
+
