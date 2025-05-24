@@ -27,7 +27,7 @@ export class ChallengeController {
     return this.challengeService.updateOne(+idToUpdate, updateChallengeDto);
   }
 
-  @Delete('remove/:id')
+  @Delete('remove/admin/:id')
   remove(@Param('id') idToDelete: string) {
     return this.challengeService.deleteOne(+idToDelete);
   }
