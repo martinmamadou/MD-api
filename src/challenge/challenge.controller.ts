@@ -36,9 +36,9 @@ export class ChallengeController {
   findByTarget(@Param('target') target: string) {
     return this.challengeService.findByTarget(target);
   }
-
-  @Post('accept/:id')
-  acceptChallenge(@Param(':id') target: string) {
-
+  
+  @Get('category/:category')
+  findByCategory(@Param('category') categoryId: number) {
+    return this.challengeService.findByCategory(categoryId);
   }
 }

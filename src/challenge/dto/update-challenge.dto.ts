@@ -9,4 +9,5 @@ export class UpdateChallengeDto extends PartialType(CreateChallengeDto) {
     is_active : Boolean
     badges: string
     estimated_duration: number
+    category_id: number
 }

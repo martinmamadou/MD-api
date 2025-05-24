@@ -1,3 +1,4 @@
+
 export class CreateChallengeDto {
     name: string;
     description:string;
@@ -5,6 +6,6 @@ export class CreateChallengeDto {
     target : string
     is_active : Boolean
     badges: string
-    created_at: Date
     estimated_duration: number
+    category_id: number
 }

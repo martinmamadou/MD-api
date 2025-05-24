@@ -1,5 +1,6 @@
+import { ChallengeCategory } from "src/challenge_category/entities/challenge_category.entity";
 import { UserChallenge } from "src/user_challenge/entities/user_challenge.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 
 @Entity({ name: 'challenge' })
 export class Challenge {
@@ -32,5 +33,9 @@ export class Challenge {
 
     @OneToMany(() => UserChallenge, userChallenge => userChallenge.challenge)
     userChallenges: UserChallenge[];
+
+    @ManyToOne(() => ChallengeCategory, category => category.challenges)
+    @JoinColumn({ name: 'category_id' })
+    category: ChallengeCategory;
 }
 

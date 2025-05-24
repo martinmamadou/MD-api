@@ -20,7 +20,8 @@ import { EmergencyModule } from './emergency/emergency.module';
 import { UserChallengeModule } from './user_challenge/user_challenge.module';
 import { UserChallenge } from './user_challenge/entities/user_challenge.entity';
 import { Emergency } from './emergency/entities/emergency.entity';
-
+import { ChallengeCategoryModule } from './challenge_category/challenge_category.module';
+import { ChallengeCategory } from './challenge_category/entities/challenge_category.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -33,7 +34,7 @@ import { Emergency } from './emergency/entities/emergency.entity';
         database: configService.get<string>('DB_NAME'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency],
+        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory],
       }),
       inject: [ConfigService],
     }),
@@ -45,6 +46,7 @@ import { Emergency } from './emergency/entities/emergency.entity';
     MoodTrackerModule,
     EmergencyModule,
     UserChallengeModule,
+    ChallengeCategoryModule,
   ],
   controllers: [AppController],
   providers: [

@@ -4,17 +4,32 @@ import { UpdateChallengeDto } from './dto/update-challenge.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Challenge } from './entities/challenge.entity';
 import { Repository } from 'typeorm';
+import { ChallengeCategory } from 'src/challenge_category/entities/challenge_category.entity';
 
 @Injectable()
 export class ChallengeService {
   constructor(
     @InjectRepository(Challenge)
-    private challengeRepository: Repository<Challenge>
-  ) {
+    private challengeRepository: Repository<Challenge>,
+    @InjectRepository(ChallengeCategory)
+    private categoryRepository: Repository<ChallengeCategory>
+  ) { }
 
-  }
   async create(createChallengeDto: CreateChallengeDto) {
-    return await this.challengeRepository.save(createChallengeDto);
+    const category = await this.categoryRepository.findOne({
+      where: { id: createChallengeDto.category_id }
+    });
+
+    if (!category) {
+      throw new Error('Category not found');
+    }
+
+    const challenge = this.challengeRepository.create({
+      ...createChallengeDto,
+      category
+    });
+
+    return await this.challengeRepository.save(challenge);
   }
 
   async findAll() {
@@ -42,6 +57,17 @@ export class ChallengeService {
   async findByTarget(target: string) {
     return await this.challengeRepository.find({
       where: { target }
+    });
+  }
+
+  async findByCategory(categoryId: number) {
+    return await this.challengeRepository.find({
+      relations: ['category'],
+      where: {
+        category: {
+          id: categoryId
+        }
+      }
     });
   }
 }
