@@ -26,6 +26,8 @@ import { RewardsCategoryModule } from './rewards-category/rewards-category.modul
 import { RewardsCategory } from './rewards-category/entities/rewards-category.entity';
 import { UserRewardModule } from './user-reward/user-reward.module';
 import { UserReward } from './user-reward/entities/user-reward.entity';
+import { EmergencyHistoryModule } from './emergency-history/emergency-history.module';
+import { EmergencyHistory } from './emergency-history/entities/emergency-history.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -38,7 +40,7 @@ import { UserReward } from './user-reward/entities/user-reward.entity';
         database: configService.get<string>('DB_NAME'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory, RewardsCategory, UserReward],
+        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory, RewardsCategory, UserReward, EmergencyHistory],
       }),
       inject: [ConfigService],
     }),
@@ -53,6 +55,7 @@ import { UserReward } from './user-reward/entities/user-reward.entity';
     ChallengeCategoryModule,
     RewardsCategoryModule,
     UserRewardModule,
+    EmergencyHistoryModule,
   ],
   controllers: [AppController],
   providers: [
