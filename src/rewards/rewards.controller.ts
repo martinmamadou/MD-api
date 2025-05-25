@@ -31,4 +31,9 @@ export class RewardsController {
   remove(@Param('id') id: string) {
     return this.rewardsService.remove(+id);
   }
+
+  @Get('category/:id')
+  findCategory(@Param('id') id: string) {
+    return this.rewardsService.findByCategory(+id);
+  }
 }

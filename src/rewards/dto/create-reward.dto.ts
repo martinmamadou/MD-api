@@ -4,4 +4,5 @@ export class CreateRewardDto {
   points_needed: number;
   is_active: boolean;
   created_at: Date;
+  category_id: number;
 }

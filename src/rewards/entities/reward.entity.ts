@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { RewardsCategory } from "src/rewards-category/entities/rewards-category.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'rewards'})
 export class Reward {
@@ -19,4 +20,8 @@ export class Reward {
 
   @Column()
   created_at: Date;
+
+  @ManyToOne(() => RewardsCategory, (category) => category.rewards)
+  @JoinColumn({ name: "category_id" })
+  category: RewardsCategory;
 }

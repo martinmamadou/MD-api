@@ -7,4 +7,5 @@ export class UpdateRewardDto extends PartialType(CreateRewardDto) {
   points_needed: number;
   is_active: boolean;
   created_at: Date;
+  category_id: number; 
 }

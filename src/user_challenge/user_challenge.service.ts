@@ -80,8 +80,8 @@ export class UserChallengeService {
     return this.userChallengeRepository.save(userChallenge);
   }
 
-  remove(id: number) {
-    return this.userChallengeRepository.delete(id);
+  async remove(id: number) {
+    return await this.userChallengeRepository.delete(id);
   }
 
   async findByUserAndChallenge(userId: number, challengeId: number) {
