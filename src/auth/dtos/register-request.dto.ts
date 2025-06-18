@@ -11,9 +11,4 @@ export type RegisterRequestDto = {
   goal: string;
   created_at: Date;
   role: string;
-  additional_info: {
-    peak_smoking_time: string;
-    trigger_factor: string;
-    previous_attempts: string;
-  };
 };

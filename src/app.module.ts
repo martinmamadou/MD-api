@@ -28,11 +28,14 @@ import { UserRewardModule } from './user-reward/user-reward.module';
 import { UserReward } from './user-reward/entities/user-reward.entity';
 import { EmergencyHistoryModule } from './emergency-history/emergency-history.module';
 import { EmergencyHistory } from './emergency-history/entities/emergency-history.entity';
+import { UploadModule } from './modules/upload/upload.module';
+import { EmergencyCategoryModule } from './emergency_category/emergency_category.module';
+import { EmergencyCategory } from './emergency_category/entities/emergency_category.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, UploadModule],
       useFactory: async (configService: ConfigService) => ({
         type: 'mariadb',
         host: configService.get<string>('DB_HOST'),
@@ -40,7 +43,7 @@ import { EmergencyHistory } from './emergency-history/entities/emergency-history
         database: configService.get<string>('DB_NAME'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory, RewardsCategory, UserReward, EmergencyHistory],
+        entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory, RewardsCategory, UserReward, EmergencyHistory, EmergencyCategory],
       }),
       inject: [ConfigService],
     }),
@@ -56,6 +59,7 @@ import { EmergencyHistory } from './emergency-history/entities/emergency-history
     RewardsCategoryModule,
     UserRewardModule,
     EmergencyHistoryModule,
+    EmergencyCategoryModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,17 +1,23 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { JwtGuard } from './auth/guards/jwt.guard';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalGuards(new JwtGuard(app.get(Reflector)));
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // Configuration CORS
   app.enableCors({
-    origin: '*', // Permet toutes les origines en développement
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
+    origin: 'http://localhost:4200', // URL de votre app Angular
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+
+  // Configuration du dossier statique pour les images
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+  });
+
   await app.listen(3000);
 }
-
 bootstrap();

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { EmergencyCategory } from "src/emergency_category/entities/emergency_category.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'emergency'})
 export class Emergency {
@@ -15,8 +16,12 @@ export class Emergency {
   tips: string;
 
   @Column()
-  category: string;
+  created_at: Date;
 
   @Column()
-  created_at: Date;
+  category_id: number;
+
+  @ManyToOne(() => EmergencyCategory, (category) => category.emergencies)
+  @JoinColumn({ name: "category_id" })
+  category: EmergencyCategory;
 }

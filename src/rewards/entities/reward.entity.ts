@@ -16,6 +16,8 @@ export class Reward {
   points_needed: number;
 
   @Column()
+  image_url: string;
+  @Column()
   is_active: boolean;
 
   @Column()

@@ -7,7 +7,7 @@ import { UpdateUserRewardDto } from './dto/update-user-reward.dto';
 export class UserRewardController {
   constructor(private readonly userRewardService: UserRewardService) {}
 
-  @Post('/admin/create')
+  @Post('/create')
   create(@Body() createUserRewardDto: CreateUserRewardDto) {
     return this.userRewardService.create(createUserRewardDto);
   }

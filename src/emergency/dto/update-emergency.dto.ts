@@ -5,6 +5,6 @@ export class UpdateEmergencyDto extends PartialType(CreateEmergencyDto) {
   name: string;
   description: string;
   tips: string;
-  category: string;
+  category_id: number;
   created_at: Date;
 }

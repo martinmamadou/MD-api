@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { UpdateChallengeDto } from './dto/update-challenge.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -69,5 +69,15 @@ export class ChallengeService {
         }
       }
     });
+  }
+
+  async uploadBadge(id: number, file: Express.Multer.File): Promise<Challenge> {
+    const challenge = await this.findOne(id);
+    if (!challenge) {
+      throw new NotFoundException('Challenge not found');
+    }
+
+    challenge.badge_url = `http://localhost:3000/uploads/${file.filename}`;
+    return this.challengeRepository.save(challenge);
   }
 }

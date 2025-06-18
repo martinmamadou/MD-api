@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { RewardsService } from './rewards.service';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
+import { multerConfig } from '../config/multer.config';
 
 @Controller('rewards')
 export class RewardsController {
-  constructor(private readonly rewardsService: RewardsService) {}
+  constructor(private readonly rewardsService: RewardsService) { }
 
   @Post('/create')
   create(@Body() createRewardDto: CreateRewardDto) {
@@ -35,5 +37,14 @@ export class RewardsController {
   @Get('category/:id')
   findCategory(@Param('id') id: string) {
     return this.rewardsService.findByCategory(+id);
+  }
+
+  @Post(':id/upload')
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async uploadImage(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.rewardsService.uploadImage(+id, file);
   }
 }

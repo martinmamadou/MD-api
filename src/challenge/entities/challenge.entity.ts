@@ -23,7 +23,7 @@ export class Challenge {
     is_active: Boolean
 
     @Column()
-    badges: string
+    badge_url: string
 
     @Column()
     created_at: Date

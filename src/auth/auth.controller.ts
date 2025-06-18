@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -14,11 +15,12 @@ import { RegisterRequestDto } from './dtos/register-request.dto';
 import { LoginResponseDTO } from './dtos/login-response.dto';
 import { RegisterResponseDTO } from './dtos/register-response.dto';
 import { Public } from './decorators/public.decorator';
+import { User } from '../users/users.entity';
 
 @Public()
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
@@ -38,4 +40,10 @@ export class AuthController {
   async profile(@Request() req) {
     return req.user;
   }
+
+  @Put('profile')
+  async update(@Request() req, @Body() updateBody: Partial<User>) {
+    return await this.authService.updateUser({ ...req.user, ...updateBody });
+  }
+
 }

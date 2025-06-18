@@ -31,4 +31,10 @@ export class EmergencyController {
   remove(@Param('id') id: string) {
     return this.emergencyService.remove(+id);
   }
+
+  @Get('category/:id')
+  findByCategory(@Param('id') id: string) {
+    return this.emergencyService.findByCategory(+id);
+  }
+  
 }

@@ -4,7 +4,6 @@ import { UpdateRewardDto } from './dto/update-reward.dto';
 import { Reward } from './entities/reward.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateChallengeDto } from 'src/challenge/dto/create-challenge.dto';
 import { RewardsCategory } from 'src/rewards-category/entities/rewards-category.entity';
 
 @Injectable()
@@ -65,5 +64,15 @@ export class RewardsService {
         }
       }
     });
+  }
+
+  async uploadImage(id: number, file: Express.Multer.File): Promise<Reward> {
+    const reward = await this.findOne(id);
+    if (!reward) {
+      throw new NotFoundException('Reward not found');
+    }
+
+    reward.image_url = file.filename;
+    return this.rewardRepository.save(reward);
   }
 }

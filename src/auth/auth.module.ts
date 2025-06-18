@@ -31,4 +31,4 @@ import { StatsModule } from 'src/stats/stats.module';
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService, JwtModule, StatsModule],
 })
-export class AuthModule {}
+export class AuthModule { }
