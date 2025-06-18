@@ -44,6 +44,7 @@ import { EmergencyCategory } from './emergency_category/entities/emergency_categ
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         entities: [User, Challenge, Stats, Reward, MoodTracker, UserChallenge, Emergency, ChallengeCategory, RewardsCategory, UserReward, EmergencyHistory, EmergencyCategory],
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),
