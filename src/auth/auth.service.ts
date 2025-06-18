@@ -46,7 +46,7 @@ export class AuthService {
       ...user,
       password: hashedPassword,
       created_at: new Date(),
-      login_date: null,
+      login_date: new Date(),
       role: 'user',
       points: 0,
       userChallenges: [],
