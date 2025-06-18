@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // Configuration CORS
   app.enableCors({
-    origin: 'http://localhost:4200', // URL de votre app Angular
+    origin: ['http://localhost:4200', 'https://md-project-xubu.vercel.app'], // URL de votre app Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
