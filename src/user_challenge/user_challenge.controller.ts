@@ -46,4 +46,22 @@ export class UserChallengeController {
   ) {
     return this.userChallengeService.findByUserAndChallenge(userId, challengeId);
   }
+
+  @Post('accept')
+  accept(
+    @Body() body: { userId: number; challengeId: number }
+  ) {
+    console.log('Données reçues dans le contrôleur:', body);
+    console.log('userId reçu:', body.userId, 'type:', typeof body.userId);
+    console.log('challengeId reçu:', body.challengeId, 'type:', typeof body.challengeId);
+    return this.userChallengeService.accept(body.userId, body.challengeId);
+  }
+
+  @Post('complete')
+  complete(
+    @Body() body: { userId: number; challengeId: number }
+  ) {
+    return this.userChallengeService.complete(body.userId, body.challengeId);
+  }
+
 }

@@ -11,4 +11,4 @@ import { User } from 'src/users/users.entity';
   controllers: [UserChallengeController],
   providers: [UserChallengeService],
 })
-export class UserChallengeModule {}
+export class UserChallengeModule { }

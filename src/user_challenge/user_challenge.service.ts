@@ -93,4 +93,74 @@ export class UserChallengeService {
       relations: ['challenge', 'user']
     });
   }
+
+  async accept(userId: number, challengeId: number) {
+    console.log(`Tentative d'acceptation - User ID: ${userId}, Challenge ID: ${challengeId}`);
+
+    // Vérifier si l'utilisateur et le défi existent
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const challenge = await this.challengeRepository.findOne({ where: { id: challengeId } });
+
+    console.log(`User trouvé:`, user ? `ID ${user.id}` : 'Non trouvé');
+    console.log(`Challenge trouvé:`, challenge ? `ID ${challenge.id}` : 'Non trouvé');
+
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+
+    if (!challenge) {
+      throw new Error(`Challenge with ID ${challengeId} not found`);
+    }
+
+    // Chercher si l'entrée existe déjà
+    let userChallenge = await this.userChallengeRepository.findOne({
+      where: {
+        user: { id: userId },
+        challenge: { id: challengeId }
+      }
+    });
+
+    console.log(`UserChallenge existant:`, userChallenge ? `ID ${userChallenge.id}` : 'Non trouvé');
+
+    if (!userChallenge) {
+      // Créer une nouvelle entrée si elle n'existe pas
+      userChallenge = this.userChallengeRepository.create({
+        user,
+        challenge,
+        is_completed: false,
+        created_at: new Date(),
+        updated_at: new Date(),
+        points_earned: 0
+      });
+      console.log('Nouvelle entrée UserChallenge créée');
+    } else {
+      // Mettre à jour l'entrée existante
+      userChallenge.is_completed = false;
+      userChallenge.updated_at = new Date();
+      console.log('Entrée UserChallenge mise à jour');
+    }
+
+    const savedUserChallenge = await this.userChallengeRepository.save(userChallenge);
+    console.log('UserChallenge sauvegardé avec succès:', savedUserChallenge.id);
+
+    return savedUserChallenge;
+  }
+
+  async complete(userId: number, challengeId: number) {
+    const userChallenge = await this.userChallengeRepository.findOne({
+      where: {
+        user: { id: userId },
+        challenge: { id: challengeId }
+      }
+    });
+
+    if (!userChallenge) {
+      throw new Error('UserChallenge not found');
+    }
+
+    userChallenge.is_completed = true;
+    userChallenge.updated_at = new Date();
+
+    return this.userChallengeRepository.save(userChallenge);
+  }
 }
