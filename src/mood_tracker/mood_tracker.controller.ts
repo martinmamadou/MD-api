@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { MoodTrackerService } from './mood_tracker.service';
 import { CreateMoodTrackerDto } from './dto/create-mood_tracker.dto';
 import { UpdateMoodTrackerDto } from './dto/update-mood_tracker.dto';
 
 @Controller('mood-tracker')
 export class MoodTrackerController {
-  constructor(private readonly moodTrackerService: MoodTrackerService) {}
+  constructor(private readonly moodTrackerService: MoodTrackerService) { }
 
   @Post('/create')
   create(@Body() createMoodTrackerDto: CreateMoodTrackerDto) {

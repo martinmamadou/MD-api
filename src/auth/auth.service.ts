@@ -56,7 +56,8 @@ export class AuthService {
       smoker_type: 'regular',
       smoker_duration: 1,
       last_cigaret_smoked: new Date(),
-      goal: 'quit'
+      goal: 'quit',
+      mood_trackers: []
     };
 
     const savedUser = await this.usersService.create(newUser);

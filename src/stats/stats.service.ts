@@ -48,9 +48,9 @@ export class StatsService {
     const quitDate = user.created_at;
     const daysWithoutSmoking = Math.max(1, Math.floor((now.getTime() - quitDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
 
-    const cigarettesPerDay = user.packet_per_day * 20; // 20 cigarettes par paquet
+    const cigarettesPerDay = user.packet_per_day // 20 cigarettes par paquet
     const cigaret_avoided = daysWithoutSmoking * cigarettesPerDay;
-    const money_saved = daysWithoutSmoking * user.packet_per_day * user.packet_price;
+    const money_saved = daysWithoutSmoking * ((user.packet_price / 20) * cigarettesPerDay);
 
     return {
       days_without_smoking: daysWithoutSmoking,

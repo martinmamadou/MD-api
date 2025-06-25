@@ -1,3 +1,4 @@
+import { MoodTracker } from 'src/mood_tracker/entities/mood_tracker.entity';
 import { Stats } from 'src/stats/entities/stats.entity';
 import { UserChallenge } from 'src/user_challenge/entities/user_challenge.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
@@ -51,4 +52,7 @@ export class User {
 
   @OneToMany(() => Stats, (stats) => stats.user)
   stats: Stats[];
+
+  @OneToMany(() => MoodTracker, (moodTracker) => moodTracker.user)
+  mood_trackers: MoodTracker[];
 }
