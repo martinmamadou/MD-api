@@ -8,14 +8,14 @@ async function bootstrap() {
 
   // Configuration CORS
   app.enableCors({
-    origin: ['http://localhost:4200', 'https://md-project-xubu.vercel.app'], // URL de votre app Angular
+    origin: ['http://localhost:4200', 'https://md-project-yac8.vercel.app'], // URL de votre app Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
   // Configuration du dossier statique pour les images
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads/',
+    prefix: '/uploads',
   });
 
   await app.listen(3000);

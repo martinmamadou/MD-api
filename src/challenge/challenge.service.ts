@@ -77,7 +77,7 @@ export class ChallengeService {
       throw new NotFoundException('Challenge not found');
     }
 
-    challenge.badge_url = `http://localhost:3000/uploads/${file.filename}`;
+    challenge.badge_url = `${file.filename}`;
     return this.challengeRepository.save(challenge);
   }
 }
