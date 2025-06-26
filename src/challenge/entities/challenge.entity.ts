@@ -26,6 +26,9 @@ export class Challenge {
     badge_url: string
 
     @Column()
+    category_id: number
+
+    @Column()
     created_at: Date
 
     @Column()
